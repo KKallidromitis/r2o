@@ -1,0 +1,78 @@
+model:
+  base_momentum: 0.99
+  backbone:
+    type: "resnet50"
+    pretrained: false
+  projection:
+    type: "MLP" 
+    input_dim: 2048
+    hidden_dim: 4096
+    output_dim: 256
+  predictor:
+    type: "MLP"
+    input_dim: 256
+    hidden_dim: 4096
+    output_dim: 256
+
+clustering:
+  scheduler:
+    type: 'cosine'
+    epochs: [0,300]
+    values: [128,4]
+    # config = {
+    #     "type":"cosine",
+    #     "epochs":[0,300],
+    #     "values":[64,1] # [1,64] work as well
+    # }
+    # # config = {
+    # #     "type":"piecewise",
+    # #     "epochs":[0,150,300],
+    # #     "values":[1,64,32] # 0-150:1 ,150-300:64,300-inf:32
+    # # }
+    # # config = {
+    # #     "type":"linear",
+    # #     "epochs":[0,150,300],
+    # #     "values":[1,64,32]
+    # # }
+amp:
+  sync_bn: True
+  opt_level: "O0"
+
+data:
+  image_dir: "/imagenet"
+  subset: "" #Set to imagenet100 for imagenet100 or imagenet1p for 1p. "" = full imagenet
+  resize_size: 224 # src: 3.1
+  data_workers: 16
+  overlap_indicator: true 
+  weight: false
+  n_kmeans: 9999
+  slic_segments: 100
+  train_batch_size: 32 # src: A.3 (Global should be 4096 = batch_size x num_gpu)
+  val_batch_size: 32
+  dual_views: true
+  num_examples: 1281167 #For imagenet1p, imagenet100, r2o_trainer automatically updates num_examples accordingly
+
+optimizer:
+  type: lars
+  base_lr: 0.3
+  lr_type: "cosine"
+  momentum: 0.9 # src: Deepmind code config
+  weight_decay: 1.0e-6
+  total_epochs: 300
+  warmup_epochs: 3 # src: Deepmind code; should be 1/100 of total epoches
+  exclude_bias_and_bn: true
+
+checkpoint:
+  time_stamp:
+  resume_path:
+  save_epoch: 100
+  ckpt_path: "ckpt/r2o/{}/{}_{}_{}.pth.tar"
+
+log:
+  log_step: 10
+  log_dir:
+  log_all: False
+  enable_wandb: False
+
+distributed: True
+seed: 0

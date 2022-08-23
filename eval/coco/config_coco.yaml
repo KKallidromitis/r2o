@@ -1,0 +1,51 @@
+_BASE_: "./base.yaml"
+MODEL:
+  PIXEL_MEAN: [123.675, 116.280, 103.530]
+  PIXEL_STD: [58.395, 57.120, 57.375]
+  WEIGHTS: "" # replace weight folder
+  RESNETS:
+    DEPTH: 50
+    NORM: "SyncBN"
+    STRIDE_IN_1X1: False
+  MASK_ON: True
+  BACKBONE: #Finetune entire model
+    FREEZE_AT: 0
+  FPN:
+    NORM: "SyncBN"
+  ROI_BOX_HEAD:
+    NORM: "SyncBN"
+  ROI_MASK_HEAD:
+    NORM: "SyncBN"
+
+DATASETS:
+  TRAIN: ("coco_2017_train",)
+  TEST: ("coco_2017_val",)
+
+INPUT:
+  FORMAT: "RGB"
+
+OUTPUT_DIR: "05-18-01-49-300-lr0.2"
+# Following DetCon Evaluation Protocol
+SOLVER:
+  # Global batch size
+  IMS_PER_BATCH: 64
+  
+ # Detcon trained on 16 tpus with a batch size of 64, setting =16 will forece `auto_scale_workers` to retain `IMS_PER_BATCH // REFERENCE_WORLD_SIZE`=4 images per GPU
+  REFERENCE_WORLD_SIZE: 16
+  
+  BASE_LR: 0.1
+  MOMENTUM: 0.9
+  WEIGHT_DECAY: 0.00004
+  #Warmup lr lineary for 500 iter
+  WARMUP_ITERS: 500
+  #Drop lr by factor of 10 after 2/3 and 8/9 of total training time
+  GAMMA : 0.1
+  STEPS: (16000, 21333)
+  MAX_ITER: 24000
+  # STEPS: (32000, 42666)
+  # MAX_ITER: 48000
+
+TEST:
+  EVAL_PERIOD: 2500
+  PRECISE_BN:
+    ENABLED: True

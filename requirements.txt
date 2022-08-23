@@ -1,0 +1,8 @@
+pyyaml
+tensorboardx
+scikit-learn
+scikit-image
+opencv-python
+pillow-simd
+wandb
+matplotlib
