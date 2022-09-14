@@ -23,7 +23,7 @@ wandb
 This repo uses `torch.distributed.launch` for pretraining:
 
 ```bash
-python -m torch.distributed.launch --nproc_per_node=4--nnodes=32 --node_rank=0 --master_addr="" --master_port=12345 r2o_main.py {CONFIG_FILENAME}
+python -m torch.distributed.launch --nproc_per_node=4--nnodes=32 --node_rank=0 --master_addr="" --master_port=12345 r2o_main.py --cfg={CONFIG_FILENAME}
 ```
 
 ## Dataset Structure
