@@ -17,8 +17,8 @@ model:
 clustering:
   scheduler:
     type: 'cosine'
-    epochs: [0,40,300]
-    values: [128,128,4]
+    epochs: [4,300]
+    values: [128,4]
     # config = {
     #     "type":"cosine",
     #     "epochs":[0,300],
