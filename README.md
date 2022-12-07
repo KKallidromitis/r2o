@@ -1,6 +1,6 @@
 # Region-to-Object (R2O)
 
-PyTorch implementation of Refine and Represent: Region-to-Object Representation Learning.
+PyTorch implementation of [Refine and Represent: Region-to-Object Representation Learning](https://arxiv.org/abs/2208.11821).
 
 Installation of [Apex](https://github.com/NVIDIA/apex) is required to enable DDP.
 
