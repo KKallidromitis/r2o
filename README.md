@@ -51,7 +51,7 @@ We release pretrained weights pretrained on ImageNet-1k for 300 epochs in origin
 
 Original [[Download](https://drive.google.com/file/d/17xXfI-7KSgjZZNUfwsIU7s1JY7otjCyX/view?usp=sharing)]
 
-Converted: Torchvision (MMSegmentation) [[Download](https://drive.google.com/file/d/1VZr8khgqZ4hAx3SlQ2ctbjKdtikIROIA/view?usp=sharing)]  D2 [(Detectron2) [Download](https://drive.google.com/file/d/1Iko-BSkrxf_SZUav0CfIfM5PakOIUFVU/view?usp=sharing)] 
+Converted: Torchvision (MMSegmentation) [[Download](https://drive.google.com/file/d/1VZr8khgqZ4hAx3SlQ2ctbjKdtikIROIA/view?usp=sharing)]  D2 (Detectron2) [[Download](https://drive.google.com/file/d/1Iko-BSkrxf_SZUav0CfIfM5PakOIUFVU/view?usp=sharing)] 
 
 The evaluation baselines are as follows
 
