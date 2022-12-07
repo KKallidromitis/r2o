@@ -11,19 +11,24 @@ To log metrics to [wandb](https://github.com/wandb/client) switch to `enable_wan
 ```
 python>=3.9
 pytorch>=1.10.0
+torchvision>=0.11.0
+joblib
+scikit-image
+matplotlib
+opencv-python
+tqdm
+tensorflow
 pyyaml
 tensorboardx
-scikit-learn
-scikit-image
-opencv-python
-pillow-simd
 wandb
+pycocotools
+classy_vision
 ```
 
 This repo uses `torch.distributed.launch` for pretraining:
 
 ```bash
-python -m torch.distributed.launch --nproc_per_node=4--nnodes=32 --node_rank=0 --master_addr="" --master_port=12345 r2o_main.py --cfg={CONFIG_FILENAME}
+python -m torch.distributed.launch --nproc_per_node=4 --nnodes=32 --node_rank=0 --master_addr="" --master_port=12345 r2o_main.py --cfg={CONFIG_FILENAME}
 ```
 
 ## Dataset Structure
@@ -42,16 +47,17 @@ imagenet
 ```
 
 ## Pretrained Weights
+We release pretrained weights pretrained on ImageNet-1k for 300 epochs in original, torchvision and d2 format.
 
-We release pretrained weights pretrained on ImageNet-1k for 300 epochs in torchvision format.
+Original [Download](https://drive.google.com/file/d/17xXfI-7KSgjZZNUfwsIU7s1JY7otjCyX/view?usp=sharing) 
 
-[Download](https://drive.google.com/drive/folders/1R9e_BpR5ULwODE9MY5lfXJKpskaMVO1F?usp=sharing) 
+Converted: Torchvision (MMSegmentation) [Download](https://drive.google.com/file/d/1VZr8khgqZ4hAx3SlQ2ctbjKdtikIROIA/view?usp=sharing)  D2 (Detectron2) [Download](https://drive.google.com/file/d/1Iko-BSkrxf_SZUav0CfIfM5PakOIUFVU/view?usp=sharing) 
 
 The evaluation baselines are as follows
 
 |         Metric         | Value  |
 |------------------|---|
-|  PASCAL VOC mIoU | 76.7 |
+|  PASCAL VOC mIoU | 77.3 |
 | Cityscapes mIoU  | 76.6  |
 |    MS COCO $\text{AP}^{\text{bb}}$ | 41.7  |
 |    MS COCO $\text{AP}^{\text{mk}}$ |  38.3 |

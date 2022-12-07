@@ -75,7 +75,7 @@ class R2OTrainer():
         self.time_stamp = self.config['checkpoint']['time_stamp']
         if self.time_stamp == None:
             self.time_stamp = datetime.datetime.now().strftime('%m_%d_%H-%M')
-            
+        self.scale_lr_by_k = self.config['optimizer']['scale_lr_by_k']
         self.save_epoch = self.config['checkpoint']['save_epoch']
         self.ckpt_path = self.config['checkpoint']['ckpt_path'].format(
             self.time_stamp,self.time_stamp, self.config['model']['backbone']['type'], {})
@@ -169,7 +169,7 @@ class R2OTrainer():
                     }
             torch.save(state, self.ckpt_path.format(epoch))
 
-    def adjust_learning_rate(self, step):
+    def adjust_learning_rate(self, step,k):
         """learning rate warm up and decay"""
         max_lr = self.max_lr
         min_lr = 1e-3 * self.max_lr
@@ -190,7 +190,8 @@ class R2OTrainer():
             global_step = np.minimum((step - self.warmup_steps), max_steps)
             cosine_decay_value = 0.5 * (1 + np.cos(np.pi * global_step / max_steps))
             lr = max_lr * cosine_decay_value
-                 
+        if self.scale_lr_by_k:
+            lr = lr * k / self.scale_lr_by_k
         for param_group in self.optimizer.param_groups:
             param_group['lr'] = lr
 
@@ -241,7 +242,7 @@ class R2OTrainer():
         
         while images is not None:
             i+=1
-            self.adjust_learning_rate(self.steps)
+            self.adjust_learning_rate(self.steps,clustering_k)
             self.adjust_mm(self.steps)
             self.steps += 1
             #import ipdb;ipdb.set_trace()

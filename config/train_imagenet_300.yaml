@@ -17,7 +17,7 @@ model:
 clustering:
   scheduler:
     type: 'cosine'
-    epochs: [4,300]
+    epochs: [0,300]
     values: [128,4]
     # config = {
     #     "type":"cosine",
@@ -41,13 +41,13 @@ amp:
 data:
   image_dir: "/imagenet"
   subset: "" #Set to imagenet100 for imagenet100 or imagenet1p for 1p. "" = full imagenet
-  resize_size: 224 # src: 3.1
+  resize_size: 224 
   data_workers: 16
   overlap_indicator: true 
   weight: false
   n_kmeans: 9999
   slic_segments: 100
-  train_batch_size: 32 # src: A.3 (Global should be 4096 = batch_size x num_gpu)
+  train_batch_size: 32 # Global should be 4096 = batch_size x num_gpu
   val_batch_size: 32
   dual_views: true
   num_examples: 1281167 #For imagenet1p, imagenet100, r2o_trainer automatically updates num_examples accordingly
@@ -56,10 +56,11 @@ optimizer:
   type: lars
   base_lr: 0.3
   lr_type: "cosine"
-  momentum: 0.9 # src: Deepmind code config
+  scale_lr_by_k: 16
+  momentum: 0.9
   weight_decay: 1.0e-6
   total_epochs: 300
-  warmup_epochs: 3 # src: Deepmind code; should be 1/100 of total epoches
+  warmup_epochs: 3 # Should be 1/100 of total epoches
   exclude_bias_and_bn: true
 
 checkpoint:
