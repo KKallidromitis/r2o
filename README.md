@@ -6,6 +6,10 @@ Installation of [Apex](https://github.com/NVIDIA/apex) is required to enable DDP
 
 To log metrics to [wandb](https://github.com/wandb/client) switch to `enable_wandb:True` in `train_imagenet_300.yaml`
 
+<p align="left">
+  <img src="./r2o_teaser.png" width="500">
+</p>
+
 ## Requirements
 
 ```
@@ -61,6 +65,17 @@ The evaluation baselines are as follows
 | Cityscapes mIoU  | 76.6  |
 |    MS COCO $\text{AP}^{\text{bb}}$ | 41.7  |
 |    MS COCO $\text{AP}^{\text{mk}}$ |  38.3 |
+
+## Citing this work
+
+```
+@misc{gokul2022refine,
+  title = {Refine and Represent: Region-to-Object Representation Learning},
+  author = {Gokul, Akash and Kallidromitis, Konstantinos and Li, Shufan and Kato, Yusuke and Kozuka, Kazuki and Darrell, Trevor and Reed, Colorado J},
+  journal={arXiv preprint arXiv:2208.11821},
+  year = {2022}
+}
+```
 
 ## Reproduce Results
 
