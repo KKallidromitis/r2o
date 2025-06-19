@@ -51,7 +51,7 @@ imagenet
 ```
 
 ## Pretrained Weights
-We release pretrained weights pretrained on ImageNet-1k for 300 epochs in original, torchvision and d2 format. [Huggingface](https://huggingface.co/KonstantinosKK/r2o)
+We release pretrained weights pretrained on ImageNet-1k for 300 epochs in original, torchvision and d2 format. [Hugging Face](https://huggingface.co/KonstantinosKK/r2o)
 
 The evaluation baselines are as follows
 
